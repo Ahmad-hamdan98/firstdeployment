@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <title>Document</title>
+    <style>
+        body{
+            display: flex;
+            justify-content: space-evenly;
+        }
+        #e{
+            width: 100%;
+            height: 60px;
+            border: 2px solid black;
+            font-size: 40px;
+            text-align: center;
+        }
+        #desc{
+            width: 100%;
+            height: 60px;
+            border: 2px solid black;
+            font-size: 20px;
+        }
+        
+    </style>
+</head>
+<body><div>
+
+    <h1> welcome : {{ user.first_name}}</h1>
+    <hr>
+    {% if user.id == show.uploder.id %}
+    <form action="/edit" method="post">
+    {% csrf_token %}
+    <input type="text" name="uptitle"  value="{{show.title}}" id="e">
+    {% else %}
+    <h1 id="e">{{show.title}}</h1>
+    {% endif %}
+    <p>Added by : {{show.uploder.first_name}} {{show.uploder.last_name}}</p>
+    <p>Added on : {{show.created_at}}</p>
+    <p>Last updated at : {{show.updated_at}}</p>
+
+    {% if user.id == show.uploder.id %}
+    Description <br><input name="descrip" value="{{show.desc}}" id="desc"><br> 
+
+    {% else %}
+    <h2>Description : {{show.desc}}</h2>
+    {% endif %}
+    
+
+
+    {% if user.id == show.uploder.id %}
+       
+    <button type="submit" name="edit" value="update">Updat</button>
+   
+   
+    <input type="hidden" value="{{show.id}}" name="hid">   
+    <button type="submit" name="edit" value="delete">Delete</button>
+    {% endif %}
+
+
+    </form>
+    
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+    <div>
+        <h1>Users who like this Book</h1>
+        <ul>
+            {% for u in show.userlike.all %}
+            <li>{{u.first_name}} {{u.last_name}} </li>    
+            {% endfor %}
+            
+            {% if user not in show.userlike.all %}
+            <a href="/addtofavsho/{{show.id}}">Add to favorite</a>
+            {% endif %} <br>
+           
+            {% if user in show.userlike.all%} <a href="/delfav/{{show.id}}"> Un-favorite </a>{% endif %}
+
+           
+        </ul>
+        
+    </div>
+    <a href="/gotobooks">Go Back</a>
+
+
+</body>
+</html>

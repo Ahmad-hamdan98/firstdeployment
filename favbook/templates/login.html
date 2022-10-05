@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .con{
+            display: flex;
+            justify-content: space-evenly;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="con">
+        <div class="box1">
+            
+    <form action="/regist" method="post">
+        <table>
+            <h1>Registration</h1>
+        {% csrf_token %}
+        <tr>
+       <td>First Name :</td> <td> <input type="text" name="firstname"></td>
+        </tr>
+        
+        <tr>
+       <td>Last Name :</td> <td> <input type="text" name="lastname"></td>
+    </tr>
+    
+    <tr>
+       <td>Email :</td> <td> <input type="text" name="email"></td>
+    </tr>
+    <tr>
+       <td> Password :</td> <td> <input type="text" name="pass"></td>
+    </tr>
+    <tr>
+      <td> Confirm PW :</td>  <td><input type="text" name="confirm"></td>
+    </tr>
+        </table>
+       
+   
+    <button type="submit">Rigister</button>
+
+        </form>
+        {% if messages %}
+        <ul class="messages">    
+        {% for message in messages %}    
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+        {% endfor %}
+        </ul>
+        {% endif %}
+
+        </div>
+
+        
+        
+        <div class="box2">
+            <h1>Login</h1>
+            <form action="/login" method="post">
+                {% csrf_token %}
+               <table>
+                <tr>
+               <td> Email : </td> <td><input type="text" name="email1"></td></tr>
+                <tr>
+               <td> Password :</td> <td> <input type="text" name="pass1">
+            </tr>
+                </table>
+                <button type="submit">Login</button>
+                
+
+            </form>
+            
+                </div>
+
+
+</div>
+</body>
+</html>
